@@ -6,11 +6,15 @@
 
 ### A free, open-source, all-in-one Discord bot - administration, moderation, utility, engagement, and fun in one install
 
+![Version](https://img.shields.io/badge/version-1.1.0-orange?style=for-the-badge)
 ![Node](https://img.shields.io/badge/node.js-%3E%3D18-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=for-the-badge&logo=discord&logoColor=white)
 ![SQLite](https://img.shields.io/badge/database-SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)
+
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 </div>
 
@@ -39,6 +43,8 @@
 | Image generation | [@napi-rs/canvas](https://github.com/Brooooooklyn/canvas) (prebuilt binaries, no native build tools) | ^1.0 |
 | Config management | [dotenv](https://github.com/motdotla/dotenv) | ^17.4 |
 | Command registration | Discord REST API (`discord.js` `REST` + `Routes`) | - |
+| Containerization | [Docker](https://www.docker.com/) (multi-stage build) + Docker Compose | - |
+| Process manager (non-Docker) | [pm2](https://pm2.keymetrics.io/) | - |
 
 ---
 
@@ -52,6 +58,8 @@
 - **Interactive button-driven games** - Tic-Tac-Toe and Trivia run entirely on Discord message components with server-side game state, including win/draw detection and a coin-economy payout on correct trivia answers.
 - **Centralized, secret-safe error handling** - every command and button interaction funnels through one error path that maps known Discord API failure codes to clean, professional messages and never leaks a stack trace or raw error to the user.
 - **Crash-hardened event loop** - every event listener's promise is caught at the dispatch level, with `client.on('error')`, `unhandledRejection`, and `uncaughtException` handlers as a last line of defense, so a single bad interaction can't take the whole bot down.
+- **Real self-healing** - a heartbeat watchdog force-exits the process if it's ever disconnected from Discord for more than ~3 minutes, and both deployment options (Docker's `restart: unless-stopped` + `HEALTHCHECK`, or pm2's `autorestart`) bring it straight back up. Verified live by repeatedly crashing a running container and confirming automatic recovery.
+- **Consistent role-hierarchy enforcement** - every feature that can grant a role or moderate a member (admin commands, reaction roles, tickets, the shop) checks the acting user's own role position, not just the bot's, closing the self-escalation path a naive implementation would miss.
 - **Self-hosting first** - zero external services required: SQLite lives in a local file, Discord's native Poll API is used instead of a custom voting system, and the only network calls are to Discord's API and (optionally) the meme endpoint.
 
 ---
