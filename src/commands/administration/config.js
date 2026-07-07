@@ -1,5 +1,10 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
-const { setModLogChannel, setWelcomeChannel, setWelcomeMessage } = require('../../database/guildSettings');
+const {
+  setModLogChannel,
+  setWelcomeChannel,
+  setWelcomeMessage,
+  setModuleEnabled,
+} = require('../../database/guildSettings');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -47,6 +52,26 @@ module.exports = {
               opt.setName('text').setDescription('e.g. Welcome to {server}, {user}!').setRequired(true),
             ),
         ),
+    )
+    .addSubcommandGroup((group) =>
+      group
+        .setName('modules')
+        .setDescription('Enable or disable bot modules')
+        .addSubcommand((sub) =>
+          sub
+            .setName('toggle')
+            .setDescription('Enable or disable a module')
+            .addStringOption((opt) =>
+              opt
+                .setName('module')
+                .setDescription('The module to toggle')
+                .setRequired(true)
+                .addChoices({ name: 'Moderation', value: 'moderation' }),
+            )
+            .addBooleanOption((opt) =>
+              opt.setName('enabled').setDescription('Enable or disable the module').setRequired(true),
+            ),
+        ),
     ),
   async execute(interaction) {
     const group = interaction.options.getSubcommandGroup();
@@ -69,6 +94,13 @@ module.exports = {
       const text = interaction.options.getString('text', true);
       setWelcomeMessage(guildId, text);
       return interaction.reply(`Welcome message updated to:\n> ${text}`);
+    }
+
+    if (group === 'modules' && sub === 'toggle') {
+      const moduleName = interaction.options.getString('module', true);
+      const enabled = interaction.options.getBoolean('enabled', true);
+      setModuleEnabled(guildId, moduleName, enabled);
+      return interaction.reply(`The **${moduleName}** module is now **${enabled ? 'enabled' : 'disabled'}**.`);
     }
   },
 };

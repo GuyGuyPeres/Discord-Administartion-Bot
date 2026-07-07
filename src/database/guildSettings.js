@@ -5,6 +5,7 @@ const insertStmt = db.prepare('INSERT INTO guild_settings (guild_id) VALUES (?)'
 const setModLogChannelStmt = db.prepare('UPDATE guild_settings SET mod_log_channel_id = ? WHERE guild_id = ?');
 const setWelcomeChannelStmt = db.prepare('UPDATE guild_settings SET welcome_channel_id = ? WHERE guild_id = ?');
 const setWelcomeMessageStmt = db.prepare('UPDATE guild_settings SET welcome_message = ? WHERE guild_id = ?');
+const setModulesEnabledStmt = db.prepare('UPDATE guild_settings SET modules_enabled = ? WHERE guild_id = ?');
 
 function getGuildSettings(guildId) {
   let settings = getStmt.get(guildId);
@@ -30,4 +31,22 @@ function setWelcomeMessage(guildId, message) {
   setWelcomeMessageStmt.run(message, guildId);
 }
 
-module.exports = { getGuildSettings, setModLogChannel, setWelcomeChannel, setWelcomeMessage };
+function setModuleEnabled(guildId, moduleName, enabled) {
+  const settings = getGuildSettings(guildId);
+  settings.modules_enabled[moduleName] = enabled;
+  setModulesEnabledStmt.run(JSON.stringify(settings.modules_enabled), guildId);
+}
+
+function isModuleEnabled(guildId, moduleName) {
+  const settings = getGuildSettings(guildId);
+  return settings.modules_enabled[moduleName] !== false;
+}
+
+module.exports = {
+  getGuildSettings,
+  setModLogChannel,
+  setWelcomeChannel,
+  setWelcomeMessage,
+  setModuleEnabled,
+  isModuleEnabled,
+};

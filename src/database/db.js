@@ -29,6 +29,41 @@ db.exec(`
   );
 
   CREATE INDEX IF NOT EXISTS idx_warnings_guild_user ON warnings (guild_id, user_id);
+
+  CREATE TABLE IF NOT EXISTS automod_config (
+    guild_id TEXT PRIMARY KEY,
+    enabled INTEGER NOT NULL DEFAULT 0,
+    banned_words TEXT NOT NULL DEFAULT '[]',
+    block_invites INTEGER NOT NULL DEFAULT 0,
+    max_mentions INTEGER NOT NULL DEFAULT 0,
+    caps_threshold INTEGER NOT NULL DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS antiraid_config (
+    guild_id TEXT PRIMARY KEY,
+    enabled INTEGER NOT NULL DEFAULT 0,
+    join_threshold INTEGER NOT NULL DEFAULT 10,
+    window_seconds INTEGER NOT NULL DEFAULT 10,
+    min_account_age_days INTEGER NOT NULL DEFAULT 7
+  );
+
+  CREATE TABLE IF NOT EXISTS reaction_roles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    guild_id TEXT NOT NULL,
+    message_id TEXT NOT NULL,
+    emoji_key TEXT NOT NULL,
+    role_id TEXT NOT NULL,
+    UNIQUE(message_id, emoji_key)
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_reaction_roles_message ON reaction_roles (message_id);
+
+  CREATE TABLE IF NOT EXISTS custom_commands (
+    guild_id TEXT NOT NULL,
+    trigger TEXT NOT NULL,
+    response TEXT NOT NULL,
+    PRIMARY KEY (guild_id, trigger)
+  );
 `);
 
 module.exports = db;

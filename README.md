@@ -1,6 +1,6 @@
-# Discord Administration Bot
+# Marshal-Bot
 
-A free, open-source, multi-feature Discord bot. See [PLAN.md](PLAN.md) for the module roadmap and build steps.
+A free, open-source, multi-feature Discord administration and moderation bot.
 
 ## Setup
 

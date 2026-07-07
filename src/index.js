@@ -1,7 +1,7 @@
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Events, Partials } = require('discord.js');
 
 const client = new Client({
   intents: [
@@ -9,11 +9,17 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildModeration,
+    GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.MessageContent,
   ],
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
 
 client.commands = new Collection();
+
+client.on(Events.Error, (error) => {
+  console.error('Client error:', error);
+});
 
 const commandsPath = path.join(__dirname, 'commands');
 for (const category of fs.readdirSync(commandsPath)) {
@@ -21,6 +27,7 @@ for (const category of fs.readdirSync(commandsPath)) {
   for (const file of fs.readdirSync(categoryPath).filter((f) => f.endsWith('.js'))) {
     const command = require(path.join(categoryPath, file));
     if (command?.data && command?.execute) {
+      command.category = category;
       client.commands.set(command.data.name, command);
     } else {
       console.warn(`[WARN] Command at ${category}/${file} is missing "data" or "execute".`);
@@ -28,14 +35,28 @@ for (const category of fs.readdirSync(commandsPath)) {
   }
 }
 
+function safeExecute(event, args) {
+  Promise.resolve(event.execute(...args, client)).catch((error) => {
+    console.error(`Unhandled error in event "${event.name}":`, error);
+  });
+}
+
 const eventsPath = path.join(__dirname, 'events');
 for (const file of fs.readdirSync(eventsPath).filter((f) => f.endsWith('.js'))) {
   const event = require(path.join(eventsPath, file));
   if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args, client));
+    client.once(event.name, (...args) => safeExecute(event, args));
   } else {
-    client.on(event.name, (...args) => event.execute(...args, client));
+    client.on(event.name, (...args) => safeExecute(event, args));
   }
 }
+
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled promise rejection:', error);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught exception:', error);
+});
 
 client.login(process.env.DISCORD_TOKEN);
