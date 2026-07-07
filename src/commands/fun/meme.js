@@ -19,7 +19,7 @@ module.exports = {
       await interaction.editReply({ embeds: [embed] });
     } catch (error) {
       console.error('Failed to fetch meme:', error);
-      await interaction.editReply("Couldn't fetch a meme right now — try again in a bit.");
+      await interaction.editReply("Couldn't fetch a meme right now - try again in a bit.");
     }
   },
 };

@@ -32,7 +32,7 @@ async function startTrivia(interaction) {
     .setColor(0x9b59b6)
     .setDescription(question.question)
     .addFields(question.choices.map((choice, i) => ({ name: LETTERS[i], value: choice, inline: true })))
-    .setFooter({ text: `You have ${ANSWER_TIME_MS / 1000} seconds — correct answers earn ${CORRECT_REWARD} coins!` });
+    .setFooter({ text: `You have ${ANSWER_TIME_MS / 1000} seconds - correct answers earn ${CORRECT_REWARD} coins!` });
 
   await interaction.reply({ embeds: [embed], components: [buildRow(sessionId, false)] });
   const message = await interaction.fetchReply();
@@ -78,7 +78,7 @@ async function handleTriviaButton(interaction) {
   const embed = EmbedBuilder.from(interaction.message.embeds[0]).setFooter({
     text: correct
       ? `Correct! You earned ${CORRECT_REWARD} coins. 🎉`
-      : `Incorrect — the correct answer was ${LETTERS[session.question.answerIndex]}.`,
+      : `Incorrect - the correct answer was ${LETTERS[session.question.answerIndex]}.`,
   });
 
   await interaction.update({

@@ -4,7 +4,7 @@
 
 # 🛡️ Marshal-Bot
 
-### A free, open-source, all-in-one Discord bot — administration, moderation, utility, engagement, and fun in one install
+### A free, open-source, all-in-one Discord bot - administration, moderation, utility, engagement, and fun in one install
 
 ![Node](https://img.shields.io/badge/node.js-%3E%3D18-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=for-the-badge&logo=discord&logoColor=white)
@@ -37,21 +37,21 @@
 | Database | [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) (embedded SQLite, no server required) | ^12.11 |
 | Image generation | [@napi-rs/canvas](https://github.com/Brooooooklyn/canvas) (prebuilt binaries, no native build tools) | ^1.0 |
 | Config management | [dotenv](https://github.com/motdotla/dotenv) | ^17.4 |
-| Command registration | Discord REST API (`discord.js` `REST` + `Routes`) | — |
+| Command registration | Discord REST API (`discord.js` `REST` + `Routes`) | - |
 
 ---
 
 ## ✨ Key Features
 
-- **Full administration toolkit** — `/kick`, `/ban`, `/unban`, `/timeout`, `/purge`, `/slowmode`, `/lock`/`unlock`, `/nickname`, and `/role add|remove`, each enforcing role-hierarchy and bot-permission checks before acting.
-- **Automod & anti-raid** — filters banned words, invite links, mention spam, and excessive caps in real time; detects join-rate spikes and auto-kicks new accounts during a suspected raid.
-- **Per-guild SQLite persistence** — every module (warnings, economy, levels, tickets, birthdays, etc.) reads/writes through a dedicated repository module in `src/database/`, with idempotent schema migrations so upgrades never lose data.
-- **Per-guild module toggles** — server admins can independently enable/disable Moderation, Utility, Engagement, and Fun via `/config modules toggle`, enforced centrally in the interaction handler.
-- **Generated image cards** — welcome messages and birthday announcements render a custom PNG card on the fly (avatar, gradient background, confetti) using `@napi-rs/canvas`, no external image API needed.
-- **Interactive button-driven games** — Tic-Tac-Toe and Trivia run entirely on Discord message components with server-side game state, including win/draw detection and a coin-economy payout on correct trivia answers.
-- **Centralized, secret-safe error handling** — every command and button interaction funnels through one error path that maps known Discord API failure codes to clean, professional messages and never leaks a stack trace or raw error to the user.
-- **Crash-hardened event loop** — every event listener's promise is caught at the dispatch level, with `client.on('error')`, `unhandledRejection`, and `uncaughtException` handlers as a last line of defense, so a single bad interaction can't take the whole bot down.
-- **Self-hosting first** — zero external services required: SQLite lives in a local file, Discord's native Poll API is used instead of a custom voting system, and the only network calls are to Discord's API and (optionally) the meme endpoint.
+- **Full administration toolkit** - `/kick`, `/ban`, `/unban`, `/timeout`, `/purge`, `/slowmode`, `/lock`/`unlock`, `/nickname`, and `/role add|remove`, each enforcing role-hierarchy and bot-permission checks before acting.
+- **Automod & anti-raid** - filters banned words, invite links, mention spam, and excessive caps in real time; detects join-rate spikes and auto-kicks new accounts during a suspected raid.
+- **Per-guild SQLite persistence** - every module (warnings, economy, levels, tickets, birthdays, etc.) reads/writes through a dedicated repository module in `src/database/`, with idempotent schema migrations so upgrades never lose data.
+- **Per-guild module toggles** - server admins can independently enable/disable Moderation, Utility, Engagement, and Fun via `/config modules toggle`, enforced centrally in the interaction handler.
+- **Generated image cards** - welcome messages and birthday announcements render a custom PNG card on the fly (avatar, gradient background, confetti) using `@napi-rs/canvas`, no external image API needed.
+- **Interactive button-driven games** - Tic-Tac-Toe and Trivia run entirely on Discord message components with server-side game state, including win/draw detection and a coin-economy payout on correct trivia answers.
+- **Centralized, secret-safe error handling** - every command and button interaction funnels through one error path that maps known Discord API failure codes to clean, professional messages and never leaks a stack trace or raw error to the user.
+- **Crash-hardened event loop** - every event listener's promise is caught at the dispatch level, with `client.on('error')`, `unhandledRejection`, and `uncaughtException` handlers as a last line of defense, so a single bad interaction can't take the whole bot down.
+- **Self-hosting first** - zero external services required: SQLite lives in a local file, Discord's native Poll API is used instead of a custom voting system, and the only network calls are to Discord's API and (optionally) the meme endpoint.
 
 ---
 
@@ -90,7 +90,7 @@
    DEV_GUILD_ID=your-test-server-id
    ```
 
-   > ⚠️ **Never commit your `.env` file.** It contains your bot's live token — treat it like a password. `.gitignore` already excludes it, but always double-check before pushing.
+   > ⚠️ **Never commit your `.env` file.** It contains your bot's live token - treat it like a password. `.gitignore` already excludes it, but always double-check before pushing.
 
 <details>
 <summary>🩹 <strong>Troubleshooting</strong></summary>
@@ -100,7 +100,7 @@
 | `Used disallowed intents` on startup | Privileged intents not enabled in the portal | Enable **Server Members Intent** and **Message Content Intent** under the **Bot** tab |
 | `Integration requires code grant` when inviting the bot | "Requires OAuth2 Code Grant" is enabled | Turn it off under the **Bot** tab, then reuse the invite link |
 | Slash commands don't show up in Discord | Commands only registered globally (can take up to ~1 hour) | Set `DEV_GUILD_ID` in `.env` and re-run `npm run deploy-commands` for instant guild-scoped registration |
-| `SQLITE_CANTOPEN` or missing `data/` folder | First run hasn't created the SQLite file yet | The bot creates `data/bot.sqlite` automatically on first launch — make sure the process has write access to the project folder |
+| `SQLITE_CANTOPEN` or missing `data/` folder | First run hasn't created the SQLite file yet | The bot creates `data/bot.sqlite` automatically on first launch - make sure the process has write access to the project folder |
 | `DiscordAPIError: Missing Permissions` | The bot's role is below the target role, or lacks the permission | Move the bot's role higher in **Server Settings → Roles**, and re-check the invite's permission scope |
 
 </details>
@@ -121,7 +121,7 @@
 
 ## 💡 Usage
 
-Marshal-Bot is controlled entirely through Discord **slash commands** — there is no HTTP API. Type `/` in any server the bot is in to see the full, auto-completed command list.
+Marshal-Bot is controlled entirely through Discord **slash commands** - there is no HTTP API. Type `/` in any server the bot is in to see the full, auto-completed command list.
 
 #### Commands Overview
 
@@ -184,11 +184,11 @@ The **fun** module is now **disabled**.
 /rank
 ```
 
-**Response** — an embed showing current level, XP progress bar, and server-wide rank.
+**Response** - an embed showing current level, XP progress bar, and server-wide rank.
 
 #### Error Responses
 
-Errors never expose internal details (stack traces, database errors, etc.) — every failure is mapped to a clean, ephemeral message, for example:
+Errors never expose internal details (stack traces, database errors, etc.) - every failure is mapped to a clean, ephemeral message, for example:
 
 ```
 I don't have permission to do that. Check my role's permissions and position and try again.
@@ -202,7 +202,7 @@ I don't have permission to do that. Check my role's permissions and position and
 
 ```text
 src/
-├── 📁 commands/              # Slash commands, grouped by module — folder name = module category
+├── 📁 commands/              # Slash commands, grouped by module - folder name = module category
 │   ├── 📁 administration/    #   ↳ /kick, /ban, /config, etc. (always enabled)
 │   ├── 📁 moderation/        #   ↳ /warn, /automod, /antiraid
 │   ├── 📁 utility/           #   ↳ /remind, /poll, /ticket, /birthday, etc.
@@ -212,7 +212,7 @@ src/
 ├── 📁 database/               # db.js (schema + migrations) + one repository module per feature
 ├── 📁 utils/                  # Shared helpers: game logic, schedulers, error mapping, card rendering
 ├── 📁 data/                    # Static content (trivia questions, jokes, word lists)
-├── 📄 index.js                # Bot entry point — loads commands/events, logs in
+├── 📄 index.js                # Bot entry point - loads commands/events, logs in
 └── 📄 deploy-commands.js      # Registers slash commands with Discord's API
 ```
 
@@ -238,12 +238,12 @@ Issues and pull requests are welcome!
 <details>
 <summary>📐 <strong>Code Style Guidelines</strong></summary>
 
-- **Commands** live in `src/commands/<category>/<name>.js` and export `{ data, execute }` — dropping a file in the right folder is enough; it's picked up automatically by `index.js`, no manual registration required (beyond running `npm run deploy-commands`).
+- **Commands** live in `src/commands/<category>/<name>.js` and export `{ data, execute }` - dropping a file in the right folder is enough; it's picked up automatically by `index.js`, no manual registration required (beyond running `npm run deploy-commands`).
 - **Database access** goes through a repository module in `src/database/`, never raw SQL inline in a command file.
-- **Error handling**: never send `error.message` or a stack trace to the user — add new Discord API error codes to `src/utils/errorMessages.js` instead.
+- **Error handling**: never send `error.message` or a stack trace to the user - add new Discord API error codes to `src/utils/errorMessages.js` instead.
 - **Permissions**: use `setDefaultMemberPermissions` on the command builder for simple cases; for subcommand-level permission differences, check `interaction.memberPermissions.has(...)` manually inside `execute`.
 - **Naming**: `camelCase` for functions/variables, files named after what they export.
-- Keep functions focused — one command, one job; shared logic belongs in `src/utils/`.
+- Keep functions focused - one command, one job; shared logic belongs in `src/utils/`.
 
 </details>
 

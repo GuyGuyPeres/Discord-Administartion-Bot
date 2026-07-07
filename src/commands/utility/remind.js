@@ -36,7 +36,7 @@ module.exports = {
     addReminder(interaction.guild.id, interaction.channel.id, interaction.user.id, message, remindAt);
 
     await interaction.reply({
-      content: `Got it — I'll remind you in ${amount} ${unit}: "${message}"`,
+      content: `Got it - I'll remind you in ${amount} ${unit}: "${message}"`,
       ephemeral: true,
     });
   },

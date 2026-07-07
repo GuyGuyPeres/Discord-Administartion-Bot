@@ -16,7 +16,7 @@ module.exports = {
       .setColor(0xf1c40f)
       .setDescription(
         rows
-          .map((r, i) => `${medals[i] ?? `**${i + 1}.**`} <@${r.user_id}> — Level ${r.level} (${r.xp} XP)`)
+          .map((r, i) => `${medals[i] ?? `**${i + 1}.**`} <@${r.user_id}> - Level ${r.level} (${r.xp} XP)`)
           .join('\n'),
       );
 

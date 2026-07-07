@@ -26,7 +26,7 @@ module.exports = {
         .setColor(0xc0392b)
         .setDescription(
           `**${state.joinTimestamps.length}** members joined within ${config.window_seconds}s. ` +
-            `Raid mode is active for the next ${RAID_MODE_DURATION_MS / 1000}s — new accounts under ` +
+            `Raid mode is active for the next ${RAID_MODE_DURATION_MS / 1000}s - new accounts under ` +
             `${config.min_account_age_days} day(s) old will be auto-kicked.`,
         )
         .setTimestamp();

@@ -17,7 +17,7 @@ const KNOWN_API_ERRORS = {
   50034: 'I can only bulk-delete messages that are less than 14 days old.',
   50035: 'One of the values provided was invalid.',
   30013: "This server has hit Discord's channel limit, so I couldn't create a new one.",
-  30016: "That action isn't allowed right now — please try again shortly.",
+  30016: "That action isn't allowed right now - please try again shortly.",
 };
 
 const GENERIC_MESSAGE = 'Something went wrong while running that command. Please try again, or contact a server admin if it keeps happening.';

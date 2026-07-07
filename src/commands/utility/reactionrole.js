@@ -68,7 +68,7 @@ module.exports = {
       if (rows.length === 0) {
         return interaction.reply({ content: 'No reaction roles configured in this server.', ephemeral: true });
       }
-      const description = rows.map((r) => `Message \`${r.message_id}\` — <@&${r.role_id}>`).join('\n');
+      const description = rows.map((r) => `Message \`${r.message_id}\` - <@&${r.role_id}>`).join('\n');
       return interaction.reply({ content: description, ephemeral: true });
     }
   },

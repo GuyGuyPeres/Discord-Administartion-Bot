@@ -77,7 +77,7 @@ module.exports = {
         .setColor(0xe84393)
         .setDescription(
           sorted
-            .map((b) => `<@${b.user_id}> — **${MONTH_NAMES[b.month - 1]} ${b.day}** (in ${b.daysUntil === 0 ? 'today!' : `${b.daysUntil}d`})`)
+            .map((b) => `<@${b.user_id}> - **${MONTH_NAMES[b.month - 1]} ${b.day}** (in ${b.daysUntil === 0 ? 'today!' : `${b.daysUntil}d`})`)
             .join('\n'),
         );
 

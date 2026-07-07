@@ -12,7 +12,7 @@ async function notifyChannel(message, reason) {
     const notice = await message.channel.send(`${message.author}, your message was removed: ${reason}`);
     setTimeout(() => notice.delete().catch(() => {}), NOTICE_DELETE_MS).unref();
   } catch {
-    // Ignore — notifying is best-effort.
+    // Ignore - notifying is best-effort.
   }
 }
 

@@ -159,7 +159,7 @@ db.exec(`
   );
 `);
 
-// Migrations for columns added to guild_settings after the table was first created —
+// Migrations for columns added to guild_settings after the table was first created -
 // CREATE TABLE IF NOT EXISTS above is a no-op on a database that predates these columns.
 function ensureColumn(table, column, definition) {
   const columns = db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name);

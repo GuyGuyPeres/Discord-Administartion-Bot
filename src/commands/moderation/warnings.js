@@ -20,7 +20,7 @@ module.exports = {
       .setColor(0xf1c40f)
       .setDescription(
         warnings
-          .map((w, i) => `**${i + 1}.** ${w.reason} — <@${w.moderator_id}> <t:${w.created_at}:R>`)
+          .map((w, i) => `**${i + 1}.** ${w.reason} - <@${w.moderator_id}> <t:${w.created_at}:R>`)
           .join('\n'),
       );
 

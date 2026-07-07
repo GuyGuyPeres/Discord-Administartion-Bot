@@ -44,7 +44,7 @@ module.exports = {
         .setTitle('🛒 Shop')
         .setColor(0x00b894)
         .setDescription(
-          items.map((item) => `\`#${item.id}\` **${item.name}** — ${item.price} coins${item.role_id ? ` (grants <@&${item.role_id}>)` : ''}`).join('\n'),
+          items.map((item) => `\`#${item.id}\` **${item.name}** - ${item.price} coins${item.role_id ? ` (grants <@&${item.role_id}>)` : ''}`).join('\n'),
         );
       return interaction.reply({ embeds: [embed] });
     }
